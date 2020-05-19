@@ -72,6 +72,7 @@
               <table class="table table-hover table-striped" id="logTable">
                 <thead>
                   <tr>
+                    <th>Name</th>				  
                     <th>Callsign</th>
                     <th>Date</th>
                     <th>Time</th>
@@ -83,7 +84,7 @@
                 </thead>
                 <tbody>
                   <?php
-                      $con= new mysqli("localhost","root","root","hamlog");
+                      $con= new mysqli("localhost","root","","hamlog");
                       $search = $_GET['query'];
                       //$query = "SELECT * FROM employees
                      // WHERE first_name LIKE '%{$name}%' OR last_name LIKE '%{$name}%'";
@@ -99,7 +100,7 @@
 
                       while ($row = mysqli_fetch_array($result))
                   {
-                            echo  "<tr><td>" . $row["callsign"] . "</td>" . "<td>" . $row["date"] . "</td>" . "<td>" . $row["time"] . "</td>" . "<td>" . $row["frequency"] . "</td>" . "<td>" . $row["mode"]
+                            echo  "<tr><td>" . $row["name"] . "</td>". "<td>" . $row["callsign"] . "</td>"  . "<td>" . $row["date"] . "</td>" . "<td>" . $row["time"] . "</td>" . "<td>" . $row["frequency"] . "</td>" . "<td>" . $row["mode"]
                             . "</td>" . "<td>" . $row["notes"] . "</td><td>" . '<a href="delete_entry.php?id=' . $row["id"] . '"' . "><i class='fa fa-trash'></i></a></td>" . "</tr>";
 
                   }

@@ -1,9 +1,10 @@
 <?php
 $servername = "localhost";
 $username = "root";
-$password = "root";
+$password = "";
 $dbname = "hamlog";
 
+$name = $_POST['name'];
 $callsign = $_POST['callsign'];
 $date = $_POST['date'];
 $timesent = $_POST['timesent'];
@@ -19,8 +20,8 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "INSERT INTO logbook (callsign, date, timesent, frequency, mode, notes)
-VALUES ('$callsign', '$date', '$timesent', '$frequency', '$mode', '$notes')";
+$sql = "INSERT INTO logbook (name, callsign, date, timesent, frequency, mode, notes)
+VALUES ('$name', '$callsign', '$date', '$timesent', '$frequency', '$mode', '$notes')";
 
 if ($conn->query($sql) === TRUE) {
     header("Location: ../index.php"); /* Redirect browser */
