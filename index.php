@@ -1,5 +1,5 @@
 <?php
-$connect = mysqli_connect("localhost", "root", "root", "hamlog");
+$connect = mysqli_connect("localhost", "root", "", "hamlog");
 $record_per_page = 8;
 $page = '';
 if(isset($_GET["page"]))
@@ -33,13 +33,14 @@ $result = mysqli_query($connect, $query);
 
     <!-- Stylesheets -->
     <link href="css/style.css" rel="stylesheet">
+	<link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/hamlog.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400|Anonymous+Pro" rel="stylesheet">
+    <!-- href="https://fonts.googleapis.com/css?family=Roboto:300,400|Anonymous+Pro" rel="stylesheet">
 
-    <script src="https://use.fontawesome.com/8f4ddbac7d.js"></script>
+    <script src="https://use.fontawesome.com/8f4ddbac7d.js"></script -->
 
     <!-- Core Javascript -->
-    <script src="js/jquery.js"></script>
+    <script src="js/jquery-3.5.1.js"></script>
     <script src="js/bootstrap.js"></script>
     <script src="js/collapse.js"></script>
     <script src="js/utctime.js"></script>
@@ -48,13 +49,15 @@ $result = mysqli_query($connect, $query);
 
   <body onload="loadCount()">
 
-    <div class="jumbotron hamlog-head text-center">
+    <!-- div class="jumbotron hamlog-head text-center">
       <div class="container">
-        <h3>Hello. Insert fancy stuff here.</h3>
+        <h3>Hamlog</h3>
       </div>
-    </div>
+    </div-->
 
-    <div class="container-fluid">
+	<div class="container-fluid">
+	
+	
       <div class="row">
         <div class="col-lg-3 col-md-3 col-lg-offset-1 col-md-offset-1 col-sm-12 col-xs-12 hamlog-hd-3">
           <div class="panel panel-default">
@@ -71,7 +74,7 @@ $result = mysqli_query($connect, $query);
           </div>
           <div class="panel panel-default">
             <div class="panel-body">
-              <strong>Welcome to Hamlog.</strong>
+             <p><strong>Dados</strong></p>
               <p>
                 <?php
 
@@ -81,7 +84,7 @@ $result = mysqli_query($connect, $query);
                   {
                   // Return the number of rows in result set
                   $rowcount=mysqli_num_rows($records);
-                  printf("There are currently <strong>%d</strong> contact(s) logged.\n",$rowcount);
+                  printf("<strong>%d</strong> Contacts.\n",$rowcount);
                   }
 
                 ?>
@@ -94,7 +97,7 @@ $result = mysqli_query($connect, $query);
                 if ($recent->num_rows > 0) {
                     // output data of each row
                     while($row = $recent->fetch_assoc()) {
-                      printf("Most recent entry was <strong>" . $row['callsign'] . "</strong> on <strong>" . $row['date'] . "</strong>");
+                      printf("Most recent <strong>" . $row['callsign'] . "</strong> on <em>" . $row['date'] . "</em>");
                     }
                 } else {
                     echo "You haven't made any entries yet.";
@@ -106,7 +109,7 @@ $result = mysqli_query($connect, $query);
           </div>
           <div class="panel panel-default">
             <div class="panel-body">
-              <strong>Current/Universal Time:</strong>
+              <p><strong>Tempo</strong></p>
               <p><span id="local"></span><br \><span id="universal"></span></p>
             </div>
           </div>
@@ -124,6 +127,7 @@ $result = mysqli_query($connect, $query);
               <table class="table table-hover table-striped" id="logTable">
                 <thead>
                   <tr>
+				    <th>QRA</th>
                     <th>Callsign</th>
                     <th>Date</th>
                     <th>Time</th>
@@ -139,13 +143,14 @@ $result = mysqli_query($connect, $query);
                   {
                   ?>
                   <tr>
+                   <td><?php echo $row["name"]; ?></td>				  
                    <td><?php echo $row["callsign"]; ?></td>
                    <td><?php echo $row["date"]; ?></td>
                    <td><?php echo $row["timesent"]; ?></td>
                    <td><?php echo $row["frequency"]; ?></td>
                    <td><?php echo $row["mode"]; ?></td>
                    <td><?php echo $row["notes"]; ?></td>
-                   <td><?php echo "<a href='actions/delete_entry.php?id=" . $row["id"] . "'</a><i class='fa fa-trash'></i>"; ?></td>
+                   <td><?php // echo "<a href='actions/delete_entry.php?id=" . $row["id"] . "'</a><i class='fa fa-trash'></i>"; ?></td>
                   </tr>
                   <?php
                   }
@@ -153,7 +158,7 @@ $result = mysqli_query($connect, $query);
                 </tbody>
               </table>
 
-              <div class="col-md-12 text-center">
+           <div class="col-md-12 text-center">
                 <nav aria-label="Page navigation">
                   <ul class="pagination">
                       <?php
@@ -187,7 +192,7 @@ $result = mysqli_query($connect, $query);
                       ?>
                   </ul>
                 </nav>
-              </div>
+              </div>  
 
             </div>
           </div>
@@ -204,6 +209,10 @@ $result = mysqli_query($connect, $query);
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabel">Add Entry</h4>
               </div>
+             <div class="form-group">
+                <label for="frequency">QRA</label>
+                <input type="text" class="form-control" required name="name" placeholder="Their name">
+              </div>			  
               <div class="form-group">
                 <label for="frequency">Callsign</label>
                 <input type="text" class="form-control" required name="callsign" placeholder="Their callsign">
@@ -235,6 +244,7 @@ $result = mysqli_query($connect, $query);
         </div>
       </div>
     </div>
+	</div>
 
     <div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document">
@@ -258,6 +268,7 @@ $result = mysqli_query($connect, $query);
       </div>
     </div>
 
+ 
   </body>
 
 </html>
