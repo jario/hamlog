@@ -21,7 +21,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `logbook` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL, `name` varchar(100) NOT NULL,
   `callsign` varchar(6) NOT NULL,
   `date` date NOT NULL,
   `timesent` varchar(5) NOT NULL,
